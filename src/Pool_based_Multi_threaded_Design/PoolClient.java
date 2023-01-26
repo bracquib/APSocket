@@ -31,8 +31,11 @@ public class PoolClient {
 				try (FileOutputStream fileOut = new FileOutputStream(filesname)) {
 					byte[] buffer = new byte[4096];
 					int len;
-					while ((len = dis.read(buffer)) != -1) {
-						fileOut.write(buffer, 0, len);
+					int i = 0;
+					while ((len = dis.read(buffer, i*512, 512)) != -1) {
+						fileOut.write(buffer, i*512, len);
+						System.out.println("Envoie du bloc" + i+1);
+						i++;
 					}
 					//affiche  l'intérieur du fichier
 					System.out.println("le contenu du fichier est : " + new String(buffer));
@@ -45,9 +48,7 @@ public class PoolClient {
 
 		}
 		public static void main(String[] args) throws UnknownHostException, IOException {
-			for (int i =0; i < 4; i++) {
-			FileClient.run();
-			id++;
-			}
+			PoolClient.run();
+			
 		}
 }

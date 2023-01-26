@@ -14,14 +14,13 @@ import Babyfile.FileClient;
 public class clientthread {
 	static String serverHost ="127.0.0.1";
 	static int serverPort =9999;
-	static int id;
 		public static void run() throws UnknownHostException, IOException {
 			Socket soc = new Socket(serverHost, serverPort);
 			
 				OutputStream os = soc.getOutputStream();
 				DataOutputStream dos = new DataOutputStream(os);
 				String filesname = "Hello.txt";
-				System.out.println("demande le fichier " + id);
+				System.out.println("demande le fichier ");
 				byte[] b = filesname.getBytes("UTF-8");
 				dos.writeInt(b.length);
 				dos.write(b);
@@ -45,10 +44,8 @@ public class clientthread {
 
 		}
 		public static void main(String[] args) throws UnknownHostException, IOException {
-			for (int i =0; i < 4; i++) {
-			FileClient.run();
-			id++;
-			}
+			run();
+			
 		}
 
 }

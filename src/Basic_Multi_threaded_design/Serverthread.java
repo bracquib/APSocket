@@ -15,16 +15,17 @@ public class Serverthread {
 
 	static int serverPort =9999;
 	static int backlog =3;
-	public static void main(String[] args) throws UnknownHostException, IOException {
+	public static void main(String[] args) throws UnknownHostException, IOException, InterruptedException {
 			//creates one thread per client request. For each client request,
 		//the server creates a dedicated worker thread; each worker thread processes one client request and dies
 		ServerSocket listenSoc = new ServerSocket(serverPort, backlog);
-
+		Thread.sleep(5000);
+		int id=0;
 		while (true) {
 			Socket soc = listenSoc.accept();
-			Worker worker = new Worker(soc);
+			Worker worker = new Worker(soc, id);
 			worker.start();
-
+			id++;
 		}
 		
 		}

@@ -11,10 +11,15 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import Pool_based_Multi_threaded_Design.IProdConsBuffer;
+import Pool_based_Multi_threaded_Design.ProdConsBuffer;
+
 public class Worker extends Thread {
     Socket soc;
     String filesname;
-    public Worker(Socket soc) {
+    int id;
+    public Worker(Socket soc, int id) {
+        this.id=id;
         this.soc = soc;
     }
     public void run() {
@@ -27,8 +32,9 @@ public class Worker extends Thread {
             byte[] c = new byte[length];
             dis.readFully(c);
             filesname = new String(c, "UTF-8");
-            System.out.println("serveur recoit la requete");
-
+            System.out.println("serveur recoit la requete" + id);
+            
+            
             //récupérer le fichier appelé filesname dans ses dossier et l'envoyer au client
             OutputStream os = soc.getOutputStream();
             DataOutputStream dos = new DataOutputStream(os);
